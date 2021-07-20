@@ -1,0 +1,23 @@
+{
+  "name": "aleksandartimic",
+  "version": "1.0.0",
+  "description": "Aleksandar Timic - visit card",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/altim/aleksandartimic.git"
+  },
+  "keywords": [
+    "aleksandar",
+    "timic"
+  ],
+  "author": "Aleksandar Timic",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/altim/aleksandartimic/issues"
+  },
+  "homepage": "https://github.com/altim/aleksandartimic#readme"
+}
