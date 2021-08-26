@@ -1,6 +1,6 @@
-# Aleksandar Timic - visit card
+# Aleksandar Timic - CV
 
-To get my visit card just type
+To get my CV just type
 ```
 npx aleksandartimic
 ```
