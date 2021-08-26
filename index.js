@@ -96,19 +96,15 @@ console.log(`${Subtitle}CEO`)
 console.log(`${Key}Date: ${Value}Jan 2007 -  up to present`)
 console.log(`${Key}Job: ${Value}I'm the CEO of my own agency where we develop websites for small and middle size companies.`)
 console.log(`${Key}Stack: ${Value}React, Vanilla JS, jQuery, PHP, CodeIgniter, MySQL, Python, SCSS, Material UI, Twitter Bootstrap, Wordpress, WooCommerce, Photoshop, Affinity Designer, Affinity Photo, Gimp, Git`)
-console.log(`\n`)
 
 console.log(`${Title}FOCUSED AND WILLING TO LEARN`)
-console.log(`${Text}I'm always looking to improve through books, online tutorials or by learning from my colleagues.` )
-console.log(`\n`)
+console.log(`${Text}I'm always looking to improve myself through books, online tutorials or by learning from my colleagues.` )
 
 console.log(`${Title}RELIABLE`)
 console.log(`${Text}Always on time and ready to work.` )
-console.log(`\n`)
 
 console.log(`${Title}INTERESTS`)
 console.log(`${Text}Music, Games, Movies` )
-console.log(`\n`)
 
 console.log(`${Title}REFERENCES`)
 console.log(`${Subtitle}Gordan Topalovic, WhiteCitySoft, CEO`)
