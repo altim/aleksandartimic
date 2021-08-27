@@ -59,7 +59,7 @@ console.log(`${Title}EXPERIENCE`)
 console.log(`${Subtitle}Celsius Network Europe`)
 console.log(`${Subtitle}Senior Front-end Developer`)
 console.log(`${Key}Date: ${Value}June 2021 - up to present`)
-console.log(`${Key}Job: ${Value}Developing Celsius Crypto Lending Web App`)
+console.log(`${Key}Job: ${Value}Developing Celsius crypto lending web app`)
 console.log(`${Key}Stack: ${Value}React, React Query, Redux (Easy-peasy), Styled components (Emotion), Material UI, Lerna, Storybook, Jest, Github`)
 console.log(`\n`)
 
