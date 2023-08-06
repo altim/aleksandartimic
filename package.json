@@ -1,6 +1,6 @@
 {
   "name": "aleksandartimic",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "Aleksandar Timic - visit card",
   "main": "index.js",
   "bin": {
