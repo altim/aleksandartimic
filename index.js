@@ -36,7 +36,7 @@ Value = `${Reset}${FgMagenta}`
 process.stdout.write("\u001b[2J\u001b[0;0H");
 
 console.log(`${Title}ALEKSANDAR TIMIC`)
-console.log(`${Subtitle}Senior Frontend Developer @ Celsius Network Europe`)
+console.log(`${Subtitle}Senior Frontend Developer @ MELD`)
 
 console.log(`${Title}CONTACT`)
 console.log(`${Key}Email: ${Value}aleksandartimic@gmail.com`)
