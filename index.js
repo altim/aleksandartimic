@@ -40,7 +40,7 @@ console.log(`${Subtitle}Senior Frontend Developer @ MELD`)
 
 console.log(`${Title}CONTACT`)
 console.log(`${Key}Email: ${Value}aleksandartimic@gmail.com`)
-console.log(`${Key}Business email: ${Value}aleksandar.timic@celsius.network`)
+console.log(`${Key}Business email: ${Value}aleksandar.timic@meld.com`)
 console.log(`${Key}Phone: ${Value}+381603364567`)
 console.log(`${Key}Linkedin: ${Value}https://www.linkedin.com/in/aleksandar-timic-a8a77627/`)
 
