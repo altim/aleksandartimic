@@ -1,6 +1,6 @@
 {
   "name": "aleksandartimic",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": "Aleksandar Timić - Senior Frontend Engineer - CLI visit card",
   "main": "index.js",
   "bin": {
