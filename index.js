@@ -1,156 +1,329 @@
 #!/usr/bin/env node
 
-Reset = "\x1b[0m"
-Bright = "\x1b[1m"
-Dim = "\x1b[2m"
-Underscore = "\x1b[4m"
-Blink = "\x1b[5m"
-Reverse = "\x1b[7m"
-Hidden = "\x1b[8m"
+const portrait = require('./portrait')
 
-FgBlack = "\x1b[30m"
-FgRed = "\x1b[31m"
-FgGreen = "\x1b[32m"
-FgYellow = "\x1b[33m"
-FgBlue = "\x1b[34m"
-FgMagenta = "\x1b[35m"
-FgCyan = "\x1b[36m"
-FgWhite = "\x1b[37m"
+// ─── Data ────────────────────────────────────────────────────────────────────
 
-BgBlack = "\x1b[40m"
-BgRed = "\x1b[41m"
-BgGreen = "\x1b[42m"
-BgYellow = "\x1b[43m"
-BgBlue = "\x1b[44m"
-BgMagenta = "\x1b[45m"
-BgCyan = "\x1b[46m"
-BgWhite = "\x1b[47m"
+const profile = {
+  name: 'ALEKSANDAR TIMIĆ',
+  title: 'Senior Frontend Engineer',
+  company: '@ Semrush, an Adobe company',
+  location: 'Belgrade, Serbia',
+  contact: [
+    ['Email', 'aleksandartimic@gmail.com'],
+    ['Phone', '+381 60 336 4567'],
+    ['Linkedin', 'linkedin.com/in/aleksandartimic'],
+    ['Website', 'aleksandartimic.com'],
+  ],
+}
 
-Title = `\n${Reset}${Underscore}${Bright}${FgWhite}`
-Subtitle = `${Reset}${Bright}${FgMagenta}`
-Text = `${Reset}${FgMagenta}`
-Key = `${Reset}${FgWhite}`
-Value = `${Reset}${FgMagenta}`
+const about = [
+  'Senior Frontend Engineer with 15+ years of experience. I build web applications, lead frontend teams, and help developers grow. My work spans frontend architecture and complete products built from the ground up.',
+  "Alongside my company roles, I've worked on over 150 freelance projects, including work for LG and BlackBerry, and collaborated with McKinsey and BCG during my time at Symphony.",
+  'My recent focus is on AI-powered tools and workflows: retrieval-augmented generation (RAG), agent skills and plugins that help teams find information and automate repetitive tasks.',
+]
 
-// Clear screen
-process.stdout.write("\u001b[2J\u001b[0;0H");
+const experience = [
+  {
+    company: 'Semrush, an Adobe company',
+    role: 'Senior Frontend Developer',
+    date: '2025 – present',
+    job: 'Engineering AI-search analytics that turn prompt-level company and competitor mentions into visibility-gap analysis and actionable brand intelligence. Designing agentic development workflows with OpenAI Codex and Claude Code: custom skills, MCP integrations, context-aware tooling and reusable automation.',
+    stack: 'TypeScript, React, Astro, MobX, SCSS Modules, Intergalactic, react-i18next, Crowdin, Valibot, Jest, Playwright, Claude Code, Codex',
+  },
+  {
+    company: 'Symphony.is',
+    role: 'Software Engineer, Senior Frontend',
+    date: '2022 – 2025',
+    job: 'Led and mentored three engineers across two projects (onboarding, pairing, code review, technical guidance, career development). Engineered customer-facing solutions for Humane, solved interaction-heavy frontend problems, and built software for the Swedish wood industry, including service worker and charting functionality.',
+    stack: 'TypeScript, React, Next.js, Shopify, Hydrogen, Liquid, GraphQL, gRPC, Vercel, Three.js, TanStack Query, React Hook Form, React Virtual, React Spring, Radix UI, Panda CSS, Material UI, Sass, Storybook, Jest, React Testing Library, Zod, Yup, Docker, Azure DevOps',
+  },
+  {
+    company: 'Celsius',
+    role: 'Senior Frontend Developer',
+    date: '2021 – 2022',
+    job: 'Built core experiences for the Celsius crypto lending and borrowing application. Strengthened UI quality through reusable Storybook components and close Figma collaboration, and advanced controlled experimentation with feature flags and A/B testing.',
+    stack: 'TypeScript, React, TanStack Query, Node.js, Material UI, Emotion, styled-components, Storybook, Jest, React Testing Library, LaunchDarkly, Optimizely, Docker, Lerna, jscodeshift',
+  },
+  {
+    company: 'SimScale GmbH',
+    role: 'Senior Frontend Developer',
+    date: '2015 – 2021',
+    job: "Helped evolve the frontend of SimScale's cloud computer-aided engineering platform across six years, including sustained migration away from legacy technologies, with full-stack delivery to ship and sustain a complex global engineering product.",
+    stack: 'React, Backbone.js, JavaScript, Sass, PHP, MySQL, Docker, Vagrant, Jenkins, Git, Bash, Grunt, Gulp',
+  },
+  {
+    company: 'Deploy Inc.',
+    role: 'Senior Frontend Developer',
+    date: '2014 – 2015',
+    job: 'Built an advertising platform and HTML5 games, integrating Amazon CloudFront, Google Analytics and Google DFP into production advertising workflows.',
+    stack: 'JavaScript, jQuery, Phaser, Sass, Handlebars, Grunt, Jenkins, Amazon CloudFront, Google Analytics, Google DFP',
+  },
+  {
+    company: 'Qode Interactive',
+    role: 'Frontend Developer',
+    date: '2012 – 2014',
+    job: "Built the frontend for Serbia's National Lottery and a related charity campaign, including two reusable JavaScript parallax engines.",
+    stack: 'HTML5, CSS3, Sass, jQuery, Git',
+  },
+  {
+    company: 'WhiteCitySoft',
+    role: 'WordPress Developer',
+    date: '2010 – 2012',
+    job: 'Developed custom WordPress themes and plugins for international clients including Reebok and Mercy Drink.',
+    stack: 'WordPress, PHP, MySQL, JavaScript, jQuery, HTML, CSS preprocessors',
+  },
+  {
+    company: 'Altimcode',
+    role: 'Independent practice',
+    date: '2007 – present',
+    job: 'Independent web development practice focused on websites, WordPress themes and plugins, with more than 150 projects delivered, including work for LG and BlackBerry. Led performance and quality optimization, reaching 100/100 Google Lighthouse scores in Performance, Accessibility, Best Practices and SEO.',
+    stack: 'React, JavaScript, PHP, MySQL, WordPress, WooCommerce, Sass, Google Lighthouse, Photoshop, Illustrator',
+  },
+]
 
-console.log(`${Title}ALEKSANDAR TIMIC`)
-console.log(`${Subtitle}Senior Frontend Developer @ MELD`)
+const skills = [
+  ['React ecosystem', 'React, TypeScript, JavaScript, Next.js, Astro, Remix, TanStack Query/Router/Table, React Hook Form, Zod, Valibot'],
+  ['AI engineering', 'Claude Code, Codex, Cursor, Vercel AI SDK, MCP servers, custom skills and plugins, RAG, agentic workflows, embeddings, Ollama, n8n'],
+  ['Leadership', 'Team leadership, mentoring, onboarding, pairing, code reviews, application architecture, frontend performance'],
+  ['Backend & databases', 'Node.js, PHP, Python, PostgreSQL, pgvector, MySQL, SQLite, Prisma, GraphQL, gRPC, WebSockets, OAuth 2.0, JWT'],
+  ['Styling & state', 'Sass, Panda CSS, styled-components, Emotion, CSS Modules, MobX, Redux, Zustand, Jotai'],
+  ['Testing', 'Jest, React Testing Library, Playwright, Cypress, Percy.io'],
+  ['CI/CD & DevOps', 'Git, GitHub Actions, Vercel, Docker, Jenkins, Azure DevOps, Linux, Bash, Vite, Webpack'],
+  ['Design systems', 'Storybook, Figma, Mantine, Material UI, Chakra UI, Radix UI, Intergalactic'],
+  ['Creative', 'Three.js, React Three Fiber, WebGL, GLSL shaders, GSAP, React Spring, Motion, Recharts, Chart.js'],
+  ['Other', 'Shopify, Hydrogen, Web3 (Ethers, Wagmi, WalletConnect), Sanity, Contentful, WordPress, i18next, LaunchDarkly, Optimizely'],
+]
 
-console.log(`${Title}CONTACT`)
-console.log(`${Key}Email: ${Value}aleksandartimic@gmail.com`)
-console.log(`${Key}Business email: ${Value}aleksandar.timic@meld.com`)
-console.log(`${Key}Phone: ${Value}+381603364567`)
-console.log(`${Key}Linkedin: ${Value}https://www.linkedin.com/in/aleksandar-timic-a8a77627/`)
+const projects = [
+  ['gottaSay', 'AI-powered feedback platform. Designed, built, and launched everything from the interface and backend to payments and deployment.'],
+]
 
-console.log(`${Title}EDUCATION`)
-console.log(`${Subtitle}1. Master of Mathematics and Informatics`)
-console.log(`${Subtitle}Mathematical Faculty, Belgrade`)
-console.log(`\n`)
-console.log(`${Subtitle}2. Electrical Technician for Computers. Profession profile: Informatics`)
-console.log(`${Subtitle}"Nikola Tesla", Electrotechnical high school`)
+const education = [
+  ['Master of Science, Mathematics and Informatics', 'University of Belgrade, Faculty of Mathematics'],
+  ['Electrical Technician for Computers', '"Nikola Tesla" Electrotechnical High School'],
+]
 
-console.log(`${Title}LANGUAGES`)
-console.log(`${Text}English - level: high` )
-console.log(`${Text}Serbian - level: native`)
+const languages = [
+  ['Serbian', 'native'],
+  ['English', 'full professional proficiency'],
+]
 
+const interests = 'Music, Games, Movies'
 
+const references = [
+  {
+    author: 'Pepe Blasco Núñez de Cela',
+    position: 'CTO, DeFi protocol',
+    quote: 'His extensive knowledge in React, TypeScript and other frontend technologies distinguishes him as a true leader in frontend development. He effortlessly applies these skills to transform intricate designs into functional and engaging digital experiences. What sets Aleksandar apart is his intrinsic research ability. He actively keeps abreast of new developments and techniques, translating insights into actionable strategies for the team.',
+  },
+  {
+    author: 'Miloš Radović',
+    position: 'Head of Marketing Strategy & Development at Swisscom',
+    quote: 'I have been impressed by his professional attitude and his problem solving skills. He is truly thinking "out of the box". He has always shown initiative, quick thinking and determination in getting things done. I would recommend him as an exceptional frontend engineer and project manager, or to anyone who is looking for a reliable hand to take charge in projects and not just to get the job done, but done extraordinarily well.',
+  },
+  {
+    author: 'Gordan Topalović',
+    position: 'CEO at WhiteCitySoft',
+    quote: 'Aleksandar is one of the rare developers who are capable to produce quality work with such precision and dedication. Very demanding when it comes to details and skilled in multi-level environments, never refused challenge when he is confident he will succeed. Truly valuable member of our team.',
+  },
+  {
+    author: 'Timothy McMillan',
+    position: 'Owner at McMillan Freelance',
+    quote: 'Alex produces highly functional, clean code and can deliver even the most complex tasks in a timely manner.',
+  },
+]
 
-console.log(`${Title}EXPERIENCE`)
+// ─── Terminal ────────────────────────────────────────────────────────────────
 
-console.log(`${Subtitle}MELD`)
-console.log(`${Subtitle}Senior Frontend developer`)
-console.log(`${Key}Date: ${Value}December 2022 - present`)
-console.log(`${Key}Job: ${Value}Developing the Meld web application. MELD is a full-suite non-custodial DeFi banking protocol that allows users to securely lend and borrow crypto and fiat currencies and earn yield—all while maintaining custody of crypto assets.`)
-console.log(`${Key}Stack: ${Value}Typescript, React, React Query, Zustand, Ethers, MeshJS, Wagmi, Web3Auth, Styled components (Emotion), CSS Modules, Material UI, Formik, ChartJS, Storybook, Metamask, WalletConnect, Git`)
-console.log(`\n`)
+const isTTY = Boolean(process.stdout.isTTY)
+const useColor = !process.env.NO_COLOR && (isTTY || Boolean(process.env.FORCE_COLOR))
+const trueColor = /truecolor|24bit/i.test(process.env.COLORTERM || '')
 
-console.log(`${Subtitle}Symphony.is`)
-console.log(`${Subtitle}Software Engineer`)
-console.log(`${Key}Date: ${Value}June 2022 - December 2022`)
-console.log(`${Key}Job: ${Value}Development of the various software solutions for the Swedish wood industry.`)
-console.log(`${Key}Stack: ${Value}Typescript, React, React Query, SASS, Styled components (Emotion), CSS Modules, Material UI, Storybook, ChartJS, Docker, Azure DevOps`)
-console.log(`\n`)
+// Readable line length: follow the terminal, but never wider than 100 columns
+const columns = Math.max(process.stdout.columns || Number(process.env.COLUMNS) || 80, 20)
+const width = Math.min(columns, 100)
+const margin = width >= 60 ? 2 : 0
+const inner = width - margin * 2
+const pad = ' '.repeat(margin)
 
+const style = code => text => (useColor ? `\x1b[${code}m${text}\x1b[0m` : text)
+const bold = style('1')
+const dim = style('2')
+const italic = style('3')
+// Vivid blues matching the portrait; 256-color fallback otherwise
+const blue = trueColor ? '38;2;20;140;255' : '38;5;33'
+const lightBlue = trueColor ? '38;2;70;180;255' : '38;5;39'
+const accent = style(`1;${blue}`)
+const soft = style(lightBlue)
+const heading = style('1')
 
-console.log(`${Subtitle}Celsius Network Europe`)
-console.log(`${Subtitle}Senior Front-end Developer`)
-console.log(`${Key}Date: ${Value}June 2021 - Jun 2022`)
-console.log(`${Key}Job: ${Value}Developing Celsius crypto lending web app`)
-console.log(`${Key}Stack: ${Value}Typescript, React, React Query, Redux (Easy-peasy), Styled components (Emotion), Material UI, Lerna, Storybook, Jest, Github`)
-console.log(`\n`)
+const visibleLength = text => [...text.replace(/\x1b\[[0-9;]*m/g, '')].length
 
-console.log(`${Subtitle}SimScale GmbH`)
-console.log(`${Subtitle}Senior Front-end Developer`)
-console.log(`${Key}Date: ${Value}June 2015 - June 2021`)
-console.log(`${Key}Job: ${Value}Developing SimScale platform for simulation in the cloud`)
-console.log(`${Key}Stack: ${Value}React, Backbone, Vanilla JS, jQuery, Underscore, Handlebars, SASS, Python, PHP, MySQL, Jenkins, Grunt, Gulp, Docker, Cypress, Persy.io, Twitter Bootstrap, Gitlab, BASH shell scripting`)
-console.log(`\n`)
+// Word wrap to `max` columns; words longer than a line (URLs) are hard-split
+const wrap = (text, max) => {
+  const lines = []
+  let line = ''
+  for (let word of text.split(/\s+/)) {
+    while (word.length > max) {
+      if (line) lines.push(line), (line = '')
+      lines.push(word.slice(0, max))
+      word = word.slice(max)
+    }
+    if (!line) line = word
+    else if (line.length + 1 + word.length <= max) line += ' ' + word
+    else lines.push(line), (line = word)
+  }
+  if (line) lines.push(line)
+  return lines
+}
 
-console.log(`${Subtitle}Deploy Inc.`)
-console.log(`${Subtitle}Senior Front-end Developer`)
-console.log(`${Key}Date: ${Value}May 2014 - June 2015`)
-console.log(`${Key}Job: ${Value}Developing advertising platform for serving HTML5 games alongside ads.`)
-console.log(`${Key}Stack: ${Value}Vanilla JS, jQuery, HTML5, CSS3, SASS, Phaser.io, Handlebars, Grunt, Jenkins, Google Analytics, Google DFP, Amazon Cloudfront, Git`)
-console.log(`\n`)
+const out = (text = '') => console.log(text ? pad + text : '')
 
-console.log(`${Subtitle}Qode Interactive`)
-console.log(`${Subtitle}Front-end Developer`)
-console.log(`${Key}Date: ${Value}Aug 2012 - Oct 2012`)
-console.log(`${Key}Job: ${Value}Developing home site for the National Lottery of Serbia (lutrija.rs) and charity campaign website for National Lottery of Serbia (dobrota.rs)`)
-console.log(`${Key}Stack: ${Value}Vanilla JS, jQuery, HTML5, CSS3, SASS, Grunt, Git`)
-console.log(`\n`)
+// Wrapped paragraph: `prefix` on the first line, `indent` on the rest
+const paragraph = (text, { indent = '', prefix = indent, paint = t => t } = {}) => {
+  const lines = wrap(text, Math.max(inner - visibleLength(indent), 10))
+  lines.forEach((line, i) => out((i ? indent : prefix) + paint(line)))
+}
 
-console.log(`${Subtitle}WhiteCitySoft`)
-console.log(`${Subtitle}Front-end Developer`)
-console.log(`${Key}Date: ${Value}Aug 2012 - Oct 2012`)
-console.log(`${Key}Job: ${Value}Developing home site for the National Lottery of Serbia (lutrija.rs) and charity campaign website for National Lottery of Serbia (dobrota.rs)`)
-console.log(`${Key}Stack: ${Value}Vanilla JS, jQuery, HTML5, CSS3, SASS, Grunt, Git`)
-console.log(`\n`)
+const section = title => {
+  const rule = '─'.repeat(Math.max(inner - visibleLength(title) - 4, 2))
+  out()
+  out(`${dim('──')} ${heading(title)} ${dim(rule)}`)
+  out()
+}
 
-console.log(`${Subtitle}AltimCode`)
-console.log(`${Subtitle}CEO`)
-console.log(`${Key}Date: ${Value}Jan 2007 -  up to present`)
-console.log(`${Key}Job: ${Value}I'm the CEO of my own agency where we develop websites for small and middle size companies.`)
-console.log(`${Key}Stack: ${Value}React, Vanilla JS, jQuery, PHP, CodeIgniter, MySQL, Python, SCSS, Material UI, Twitter Bootstrap, Wordpress, WooCommerce, Photoshop, Affinity Designer, Affinity Photo, Gimp, Git`)
+// Left and right text on one line, or stacked when they don't fit
+const spread = (left, right) => {
+  const space = inner - visibleLength(left) - visibleLength(right)
+  if (space >= 2) out(left + ' '.repeat(space) + right)
+  else out(left), out(right)
+}
 
-console.log(`${Title}FOCUSED AND WILLING TO LEARN`)
-console.log(`${Text}I'm always looking to improve myself through books, online tutorials or by learning from my colleagues.` )
+// ─── Header ──────────────────────────────────────────────────────────────────
 
-console.log(`${Title}RELIABLE`)
-console.log(`${Text}Always on time and ready to work.` )
+const renderHeader = () => {
+  const labelWidth = Math.max(...profile.contact.map(([label]) => label.length)) + 2
+  const header = [
+    heading(profile.name),
+    accent(profile.title),
+    soft(profile.company),
+    dim(profile.location),
+    '',
+    ...profile.contact.map(([label, value]) => dim((label + ':').padEnd(labelWidth)) + value),
+  ]
+  const headerWidth = Math.max(...header.map(visibleLength))
+  const portraitLines = useColor ? (trueColor ? portrait.truecolor : portrait.ansi256) : []
+  const portraitWidth = portraitLines.length ? visibleLength(portraitLines[0]) : 0
+  const gap = '   '
 
-console.log(`${Title}INTERESTS`)
-console.log(`${Text}Music, Games, Movies` )
+  out()
+  const sideWidth = portraitWidth + gap.length + headerWidth
+  if (portraitLines.length && columns >= sideWidth) {
+    // Wide: portrait on the left, name and contact vertically centered on the right.
+    // The margin is dropped when it would push the row past the terminal edge.
+    const left = columns >= sideWidth + margin ? pad : ''
+    const offset = Math.floor((portraitLines.length - header.length) / 2)
+    portraitLines.forEach((line, i) => console.log(left + line + gap + (header[i - offset] || '')))
+  } else {
+    // Narrow: portrait above (when it fits), then the header
+    if (portraitLines.length && columns >= portraitWidth + margin) {
+      portraitLines.forEach(line => out(line))
+      out()
+    }
+    header.forEach(line => (visibleLength(line) > inner ? paragraph(line) : out(line)))
+  }
+}
 
-console.log(`${Title}REFERENCES`)
+// ─── Sections ────────────────────────────────────────────────────────────────
 
-console.log(`${Subtitle}Pepe Blasco Núñez de Cela, MELD, CTO`)
-console.log(`${Text}"I am happy to endorse Aleksandar, a top-notch Senior Frontend Developer who reported to me for the past several months. His extensive knowledge in React, TypeScript and other frontend technologies distinguishes him as a true leader in frontend development. He effortlessly applies these skills to transform intricate designs into functional and engaging digital experiences, always keeping our strategic objectives in sight.
-What sets Aleksandar apart is his intrinsic research ability. In an ever-changing tech landscape, he actively keeps abreast of new developments and techniques. He not only takes the initiative to learn and master novel topics and tools, but also translates these insights into actionable strategies for our team. His ability to simplify complex ideas has boosted our collective proficiency. Aleksandar embodies the rare combination of technical mastery, ongoing learning, and stellar teamwork. I have no doubt that he would be an incredible addition to any team or project."` )
-console.log(`\n`)
+const renderAbout = () => {
+  section('ABOUT')
+  about.forEach((text, i) => {
+    if (i) out()
+    paragraph(text)
+  })
+}
 
-console.log(`${Subtitle}Gordan Topalovic, WhiteCitySoft, CEO`)
-console.log(`${Text}"Aleksandar is one of the rare developers who are capable to produce quality work with such precision and dedication.
-Very demanding when it comes to details and skilled in multi-level environments, never refused challenge when he is confident he will succeed.
-Truly valuable member of our team."` )
-console.log(`\n`)
+const renderExperience = () => {
+  section('EXPERIENCE')
+  const rail = dim('│ ')
+  experience.forEach((job, i) => {
+    spread(`${accent('●')} ${bold(job.company)}`, dim(job.date))
+    paragraph(job.role, { indent: rail, paint: soft })
+    out(rail)
+    paragraph(job.job, { indent: rail })
+    out(rail)
+    paragraph(job.stack, { indent: rail, paint: dim })
+    if (i < experience.length - 1) out(rail)
+  })
+}
 
-console.log(`${Subtitle}Milos Radovic, Head of Marketing Strategy & Development at Swisscomt`)
-console.log(`${Text}"I known Aleksandar for several years now as a client and colleague. I have been impressed by his professional attitude and his problem solving skills. He is truly thinking "out of the box". Aleksandar has fantastic programming skills and he is technology savvy. He has always shown initiative, quick thinking and determination in getting things done. I would recommend him as a exceptional frontend engineer and project manager or to anyone who is looking for a reliable hand to take charge in projects and not just to get the job done, but done extraordinarily well."` )
-console.log(`\n`)
+const renderSkills = () => {
+  section('SKILLS')
+  const labelWidth = Math.max(...skills.map(([label]) => label.length)) + 2
+  const sideBySide = inner - labelWidth >= 40
+  skills.forEach(([label, list], i) => {
+    if (sideBySide) {
+      const prefix = soft(label.padEnd(labelWidth))
+      paragraph(list, { prefix, indent: ' '.repeat(labelWidth) })
+    } else {
+      if (i) out()
+      out(soft(label))
+      paragraph(list, { indent: '  ' })
+    }
+  })
+}
 
-console.log(`${Subtitle}Aleksandar Nenov, WhiteCitySoft, Cloud (AWS) Web Operations Consultant`)
-console.log(`${Text}"I've had the privilege to work with Aleksandar Timic, I can say it was a pleasure to collaborate with him, very professional and talented Web Developer.` )
-console.log(`\n`)
+const renderProjects = () => {
+  section('PROJECTS')
+  projects.forEach(([name, text]) => {
+    out(bold(name))
+    paragraph(text, { indent: '  ' })
+  })
+}
 
-console.log(`${Subtitle}Timothy McMillan, McMillan Freelance, Owner`)
-console.log(`${Text}"I've worked with Alex to produce exceptional projects for clients. Alex produces highly functional, clean code and can deliver even the most complex tasks in a timely manner.` )
-console.log(`\n`)
+const renderEducation = () => {
+  section('EDUCATION')
+  education.forEach(([degree, school], i) => {
+    if (i) out()
+    paragraph(degree, { paint: bold })
+    paragraph(school, { indent: '  ', paint: dim })
+  })
+}
 
+const renderLanguages = () => {
+  section('LANGUAGES')
+  languages.forEach(([language, level]) => paragraph(`${language} · ${level}`, { indent: '  ', prefix: '' }))
+  section('INTERESTS')
+  paragraph(interests)
+}
 
+const renderReferences = () => {
+  section('REFERENCES')
+  const bar = soft('┃ ')
+  references.forEach(({ author, position, quote }, i) => {
+    if (i) out()
+    paragraph(`“${quote}”`, { indent: bar, paint: italic })
+    paragraph(`— ${author}`, { indent: '  ', paint: bold })
+    paragraph(position, { indent: '    ', paint: dim })
+  })
+}
 
-console.log(`\n\n`)
+// ─── Render ──────────────────────────────────────────────────────────────────
 
+// Clear screen only in an interactive terminal, not when piped to a file
+if (isTTY) process.stdout.write('\x1b[2J\x1b[0;0H')
 
+renderHeader()
+renderAbout()
+renderExperience()
+renderSkills()
+renderProjects()
+renderEducation()
+renderLanguages()
+renderReferences()
+
+out()
+paragraph('Run it again anytime: npx aleksandartimic', { paint: dim })
+out()
